@@ -67,13 +67,26 @@ jQuery.fn.mtgallery = function(options) {
                 $img.css("height", height * ratio);  // Scale height based on ratio
                 width = maxWidth;
                 height = height * ratio;    // Reset height to match scaled image
+                $img.css({
+                    'position': 'absolute',
+                    'left': '0px',
+                    'top': Math.floor((maxHeight - height)/2 ) + 'px'
+                })
             };
             if(height > maxHeight){
                 ratio = maxHeight / height; 
                 $img.css("height", maxHeight);   
                 $img.css("width", width * ratio);  
                 width = width * ratio;
+                height = maxHeight;
+                $img.css({
+                    'position': 'absolute',
+                    'top': '0px',
+                    'left': Math.floor((maxWidth - width)/2 ) + 'px'
+                })
             }
+            
+            
         }
         
         function loadImg ($img, order) {

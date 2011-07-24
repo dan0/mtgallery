@@ -5,21 +5,60 @@
     <title>MTgallery</title>
 	<style type="text/css" media="screen">
 		
-		body {
-			background: #eee;
-			font-family: helvetica, arial, sans-serif;
-		}
-		
-		#page {
-			width: 780px;
-			padding: 5px 25px;
-			background: white;
-			border: 1px solid #ccc;
-			box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
-			margin: 15px auto;
-			border-radius: 5px;
-		}
-		
+
+
+			body {
+				background: #eee;
+				font-family: helvetica, arial, sans-serif;
+			}
+
+			#page {
+				width: 780px;
+				padding: 5px 25px;
+				background: white;
+				border: 1px solid #ccc;
+				box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+				margin: 15px auto;
+				border-radius: 5px;
+			}
+
+
+	.mt-gallery {
+	    width: 450px;
+	    height: 500px;
+	    margin: 0 auto;
+	}
+
+	.mt-viewer {
+	    width: 450px;
+	    height: 300px;
+	    position: relative;
+	}
+
+	.mt-viewer div {
+	    width: 450px;
+	    height: 300px;  
+	    background: #f1f1f1;
+	    position: absolute;
+	}
+
+	.mt-thumbs {
+	    margin: 10px 0;
+	    padding: 0;
+	}
+
+	.mt-thumbs li {
+	    width: 120px;
+	    height: 80px;
+	    float: left;
+	    display: block;
+	    margin: 0 2px 0 0;
+	    padding: 0px;
+	    background: #eee;
+	    position: relative;
+	}
+
+
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" charset="utf-8"></script>
 	<script src="jquery.mtgallery.js" type="text/javascript" charset="utf-8"></script>
