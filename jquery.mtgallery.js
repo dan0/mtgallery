@@ -11,12 +11,15 @@ jQuery.fn.mtgallery = function(options) {
     var options = jQuery.extend( {
     	playerHeight: 300,
     	playerWidth: 450,
+    	thumbMaxHeight: 80,
+    	thumbMaxWidth: 120,
     	thumbSize: 'small',
     }, options);
     
      return this.each(function() {
      
         var $el = $(this);
+        var slides = [];
         
         function embedYouTube (id) {
             var html = '';
@@ -32,9 +35,23 @@ jQuery.fn.mtgallery = function(options) {
             };
             //else parse the querystring 
             var ytid = url.match("[\\?&]v=([^&#]*)");
-			ytid = ytid[1];
-			return ytid;
+            if (ytid) {
+                return ytid[1] 
+            };
+			return false;
         }
+        
+        // go through each child of selector and
+        // pick out links etc
+        $el.children().each(function() {
+           var $this = $(this);
+           // get only the first link
+           var $link = $this.find('a:first');
+           var ytid = getId($link.attr('href'));
+           
+           
+           
+        });
         
         
         
