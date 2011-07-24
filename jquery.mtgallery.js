@@ -70,6 +70,9 @@ jQuery.fn.mtgallery = function(options) {
             var width = $img.width();
             var height = $img.height();
             
+            console.log('width '+ width);
+            console.log('height '+ height);
+            
             if (width > maxWidth) {
                 ratio = maxWidth / width; 
                 $img.css("width", maxWidth); // Set new width
@@ -98,14 +101,16 @@ jQuery.fn.mtgallery = function(options) {
             
         }
         
-        function loadImg ($img, order, thumbo) {
+        function loadImg ($img, order) {
             
-            var $thumb = $img.clone();
-
-           // add thumbnail,resize
-            $thumbs.children().eq(order).append($thumb);
-            resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
-                        
+            var $thumb = $img.clone().appendTo($thumbs.children().eq(order));
+            
+            $thumb.load(function() {
+                // add thumbnail,resize
+                //$thumbs.children().eq(order).append($thumb);
+                resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
+            });
+                   
             // add main image, resize
             $viewer.children().eq(order).append($img);
             resizeImg($img, options.playerWidth, options.playerHeight)
@@ -124,7 +129,7 @@ jQuery.fn.mtgallery = function(options) {
            var ytid = getId(href);
            
            $viewer.append('<div/>');
-           $('<li/>').appendTo($thumbs).click(function() {
+           $('<li/>').css('z-index',9000-i).appendTo($thumbs).click(function() {
                loadSlide($gal, $(this).index());
            });
            
@@ -134,7 +139,6 @@ jQuery.fn.mtgallery = function(options) {
                var $thumb = $("<img/>") 
                       .attr("src", thumbUrl)
                       .load(function() {
-                         loadImg($(this), i, true);
                          // add thumbnail,resize
                          $thumbs.children().eq(i).append($(this));
                          resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
