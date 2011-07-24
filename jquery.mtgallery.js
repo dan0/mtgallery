@@ -34,6 +34,7 @@ jQuery.fn.mtgallery = function(options) {
             html += '<iframe width="'+ options.playerWidth +'" height="'+ options.playerHeight +'"';
             html += ' src="http://www.youtube.com/embed/'+ id +'" frameborder="0"';
             html += ' allowfullscreen></iframe>';
+            return html;
         }
         
         function getId (url) {
@@ -54,6 +55,14 @@ jQuery.fn.mtgallery = function(options) {
         }
         
         function parseImgLink (link, order) {
+            
+        }
+        
+        function loadSlide ($gallery, order) {
+            var $target = $gallery.find('.mt-viewer').children('div').eq(order);
+            
+            $gallery.find('.mt-viewer').children('div').hide();
+            $target.show();
             
         }
         
@@ -89,17 +98,18 @@ jQuery.fn.mtgallery = function(options) {
             
         }
         
-        function loadImg ($img, order) {
+        function loadImg ($img, order, thumbo) {
             
             var $thumb = $img.clone();
-            
-            // add thumbnail,resize
+
+           // add thumbnail,resize
             $thumbs.children().eq(order).append($thumb);
             resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
-            
+                        
             // add main image, resize
             $viewer.children().eq(order).append($img);
             resizeImg($img, options.playerWidth, options.playerHeight)
+            
         }
         
         // go through each child of selector and
@@ -114,12 +124,22 @@ jQuery.fn.mtgallery = function(options) {
            var ytid = getId(href);
            
            $viewer.append('<div/>');
-           $thumbs.append('<li/>');
+           $('<li/>').appendTo($thumbs).click(function() {
+               loadSlide($gal, $(this).index());
+           });
            
            if (ytid) {
                
                var thumbUrl = "http://img.youtube.com/vi/" + ytid + "/0.jpg";
-
+               var $thumb = $("<img/>") 
+                      .attr("src", thumbUrl)
+                      .load(function() {
+                         loadImg($(this), i, true);
+                         // add thumbnail,resize
+                         $thumbs.children().eq(i).append($(this));
+                         resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
+                      });
+                $viewer.children('div').eq(i).html(embedYouTube(ytid));
            }
            else {
                // Is an image link
@@ -128,15 +148,14 @@ jQuery.fn.mtgallery = function(options) {
                var $img = $("<img/>") 
                    .attr("src", href)
                    .load(function() {
-                      loadImg($(this), i);
+                      loadImg($(this), i, true);
                    });
-               
-               
+
            }
            
         });
         
-        
+       
         
    
      });
