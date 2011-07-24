@@ -21,6 +21,9 @@ jQuery.fn.mtgallery = function(options) {
         var $el = $(this);
         var slides = [];
         
+        // wrap the element in a mtgallery div
+        $el.wrap('<div class="mtgallery"/>');
+        
         function embedYouTube (id) {
             var html = '';
             html += '<iframe width="'+ options.playerWidth +'" height="'+ options.playerHeight +'"';
@@ -41,15 +44,28 @@ jQuery.fn.mtgallery = function(options) {
 			return false;
         }
         
+        function parseYtLink (id, order) {
+            
+        }
+        
+        function parseImgLink (link, order) {
+            
+        }
+        
         // go through each child of selector and
         // pick out links etc
-        $el.children().each(function() {
+        $el.children().each(function(i) {
            var $this = $(this);
            // get only the first link
            var $link = $this.find('a:first');
            var ytid = getId($link.attr('href'));
            
-           
+           if (ytid) {
+               parseYtLink(ytid,i);
+           }
+           else {
+               parseImgLink($link.attr('href'));
+           }
            
         });
         
