@@ -83,7 +83,9 @@ jQuery.fn.mtgallery = function(options) {
                     'position': 'absolute',
                     'left': '0px',
                     'top': Math.floor((maxHeight - height)/2 ) + 'px'
-                })
+                }).animate({
+                    'opacity': 1
+                }, 500);
             };
             if(height > maxHeight){
                 ratio = maxHeight / height; 
@@ -95,7 +97,9 @@ jQuery.fn.mtgallery = function(options) {
                     'position': 'absolute',
                     'top': '0px',
                     'left': Math.floor((maxWidth - width)/2 ) + 'px'
-                })
+                }).animate({
+                        'opacity': 1
+                    }, 500);
             }
             
             
@@ -107,13 +111,13 @@ jQuery.fn.mtgallery = function(options) {
             
             $thumb.load(function() {
                 // add thumbnail,resize
-                //$thumbs.children().eq(order).append($thumb);
-                resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
+                resizeImg($(this), options.thumbMaxWidth, options.thumbMaxHeight);
             });
-                   
+              
+            $img.appendTo($viewer.children().eq(order)).load(function() {
+                resizeImg($(this), options.playerWidth, options.playerHeight)
+            })  
             // add main image, resize
-            $viewer.children().eq(order).append($img);
-            resizeImg($img, options.playerWidth, options.playerHeight)
             
         }
         
@@ -128,8 +132,8 @@ jQuery.fn.mtgallery = function(options) {
            var href = $link.attr('href');
            var ytid = getId(href);
            
-           $viewer.append('<div/>');
-           $('<li/>').css('z-index',9000-i).appendTo($thumbs).click(function() {
+           $('<div/>').appendTo($viewer).css('z-index',9000-i);
+           $('<li/>').appendTo($thumbs).click(function() {
                loadSlide($gal, $(this).index());
            });
            
@@ -151,9 +155,11 @@ jQuery.fn.mtgallery = function(options) {
                
                var $img = $("<img/>") 
                    .attr("src", href)
-                   .load(function() {
-                      loadImg($(this), i, true);
-                   });
+                   .css({'opacity':0})
+                   //.load(function() {
+                //      
+                //   });
+                loadImg($img, i);
 
            }
            
