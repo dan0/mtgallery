@@ -57,30 +57,36 @@ jQuery.fn.mtgallery = function(options) {
             
         }
         
+        function resizeImg ($img, maxWidth, maxHeight) {
+            var width = $img.width();
+            var height = $img.height();
+            
+            if (width > maxWidth) {
+                ratio = maxWidth / width; 
+                $img.css("width", maxWidth); // Set new width
+                $img.css("height", height * ratio);  // Scale height based on ratio
+                width = maxWidth;
+                height = height * ratio;    // Reset height to match scaled image
+            };
+            if(height > maxHeight){
+                ratio = maxHeight / height; 
+                $img.css("height", maxHeight);   
+                $img.css("width", width * ratio);  
+                width = width * ratio;
+            }
+        }
+        
         function loadImg ($img, order) {
             
             var $thumb = $img.clone();
             
-            
+            // add thumbnail,resize
             $thumbs.children().eq(order).append($thumb);
+            resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
             
-            var width = $thumb.width();
-            var height = $thumb.height();
-            
-            if (width > options.thumbMaxWidth) {
-                ratio = options.thumbMaxWidth / width; 
-                $thumb.css("width", options.thumbMaxWidth); // Set new width
-                $thumb.css("height", height * ratio);  // Scale height based on ratio
-                width = options.thumbMaxWidth;
-                height = height * ratio;    // Reset height to match scaled image
-            };
-            if(height > options.thumbMaxHeight){
-                ratio = options.thumbMaxHeight / height; 
-                $thumb.css("height", options.thumbMaxHeight);   
-                $thumb.css("width", width * ratio);  
-                width = width * ratio;
-            }
-            
+            // add main image, resize
+            $viewer.children().eq(order).append($img);
+            resizeImg($img, options.playerWidth, options.playerHeight)
         }
         
         // go through each child of selector and
