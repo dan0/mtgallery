@@ -16,7 +16,8 @@ jQuery.fn.mtgallery = function(options) {
     	thumbSize: 'small',
     	nextBack: true,
     	backText: 'back',
-    	nextText: 'next'
+    	nextText: 'next',
+    	keyNav: true
     }, options);
     
      return this.each(function() {
@@ -68,6 +69,28 @@ jQuery.fn.mtgallery = function(options) {
             $gallery.find('.current').removeClass('current');
             $target.show();
             $thumb.addClass('current');
+        }
+        
+        function backSlide ($gal) {
+            var target = $gal.find('.mt-thumbs li.current').index();
+            if (target == 0) {
+                target = $gal.find('.mt-thumbs li:last').index();
+            }
+            else {
+                target --;
+            }
+            loadSlide($gal, target);
+        }
+        
+        function nextSlide ($gal) {
+            var target = $gal.find('.mt-thumbs li.current').index();
+            if (target == $gal.find('.mt-thumbs li:last').index()) {
+                target = $gal.find('.mt-thumbs li:first').index();
+            }
+            else {
+                target ++;
+            }
+            loadSlide($gal, target);
         }
         
         function resizeImg ($img, maxWidth, maxHeight) {
@@ -176,7 +199,29 @@ jQuery.fn.mtgallery = function(options) {
             $('<a class="mt-back" href="#">' + options.backText + '</a>')
                 .appendTo($gal)
                 .click(function() {
-                alert('back');
+                    backSlide($gal);
+                    return false;
+                });
+            $('<a class="mt-next" href="#">' + options.nextText + '</a>')
+                .appendTo($gal)
+                .click(function() {
+                    nextSlide($gal);
+                    return false;
+                });
+        };
+        
+        if (options.keyNav) {
+            $(document).keydown(function(e){
+                if (e.keyCode == 37) { 
+                   //left
+                   backSlide($gal);
+                   return false;
+                }
+                if (e.keyCode == 39) { 
+                   //right
+                   nextSlide($gal);
+                   return false;
+                }
             });
         };
    
