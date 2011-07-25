@@ -14,6 +14,9 @@ jQuery.fn.mtgallery = function(options) {
     	thumbMaxHeight: 80,
     	thumbMaxWidth: 120,
     	thumbSize: 'small',
+    	nextBack: true,
+    	backText: 'back',
+    	nextText: 'next'
     }, options);
     
      return this.each(function() {
@@ -60,10 +63,11 @@ jQuery.fn.mtgallery = function(options) {
         
         function loadSlide ($gallery, order) {
             var $target = $gallery.find('.mt-viewer').children('div').eq(order);
-            
+            var $thumb = $gallery.find('.mt-thumbs').children('li').eq(order);
             $gallery.find('.mt-viewer').children('div').hide();
+            $gallery.find('.current').removeClass('current');
             $target.show();
-            
+            $thumb.addClass('current');
         }
         
         function resizeImg ($img, maxWidth, maxHeight) {
@@ -133,7 +137,9 @@ jQuery.fn.mtgallery = function(options) {
            var ytid = getId(href);
            
            $('<div/>').appendTo($viewer).css('z-index',9000-i);
-           $('<li/>').appendTo($thumbs).click(function() {
+           //add current class to first list item appended
+           var htmlString = i == 0 ? '<li class="current"/>' :  '<li/>';
+           $(htmlString).appendTo($thumbs).click(function() {
                loadSlide($gal, $(this).index());
            });
            
@@ -166,7 +172,13 @@ jQuery.fn.mtgallery = function(options) {
         });
         
        
-        
+        if (options.nextBack) {
+            $('<a class="mt-back" href="#">' + options.backText + '</a>')
+                .appendTo($gal)
+                .click(function() {
+                alert('back');
+            });
+        };
    
      });
     
