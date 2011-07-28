@@ -10,16 +10,16 @@ jQuery.fn.mtgallery = function(options) {
     
     var options = jQuery.extend( {
     	playerHeight: 300,
-    	playerWidth: 450,
+    	playerWidth: 450, 
     	thumbMaxHeight: 80,
     	thumbMaxWidth: 120,
     	thumbSize: 'small',
     	nextBack: true,
     	backText: 'back',
     	nextText: 'next',
-    	keyNav: true
+    	keyNav: false
     }, options);
-    
+
      return this.each(function() {
      
         var $el = $(this);
@@ -33,8 +33,9 @@ jQuery.fn.mtgallery = function(options) {
         var $thumbs = $gal.find('.mt-thumbs');
         
         
-        function embedYouTube (id) {
+        function embedYouTube (id, autoplay) {
             var html = '';
+			if (autoplay) { id += '?autoplay=1'};
             html += '<iframe width="'+ options.playerWidth +'" height="'+ options.playerHeight +'"';
             html += ' src="http://www.youtube.com/embed/'+ id +'" frameborder="0"';
             html += ' allowfullscreen></iframe>';
@@ -63,11 +64,16 @@ jQuery.fn.mtgallery = function(options) {
         }
         
         function loadSlide ($gallery, order) {
-            var $target = $gallery.find('.mt-viewer').children('div').eq(order);
+			var $slides = $gallery.find('.mt-viewer').children('div');
+            var $target = $slides.eq(order);
             var $thumb = $gallery.find('.mt-thumbs').children('li').eq(order);
-            $gallery.find('.mt-viewer').children('div').hide();
+            $slides.find('iframe').remove(); // get rid of playing videos
+			$slides.hide();
             $gallery.find('.current').removeClass('current');
             $target.show();
+			if ($thumb.hasClass('youtube')) { 
+				$target.html(embedYouTube($thumb.attr('data-yt'), true));
+			};
             $thumb.addClass('current');
         }
         
@@ -162,7 +168,7 @@ jQuery.fn.mtgallery = function(options) {
            $('<div/>').appendTo($viewer).css('z-index',9000-i);
            //add current class to first list item appended
            var htmlString = i == 0 ? '<li class="current"/>' :  '<li/>';
-           $(htmlString).appendTo($thumbs).click(function() {
+           var $thumbwrap = $(htmlString).appendTo($thumbs).click(function() {
                loadSlide($gal, $(this).index());
            });
            
@@ -176,7 +182,11 @@ jQuery.fn.mtgallery = function(options) {
                          $thumbs.children().eq(i).append($(this));
                          resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
                       });
-                $viewer.children('div').eq(i).html(embedYouTube(ytid));
+				// only load youtube initially if first item in list  
+				if (i == 0) {
+					$viewer.children('div').eq(i).html(embedYouTube(ytid, false));
+				}
+				$thumbwrap.addClass('youtube').attr('data-yt', ytid);
            }
            else {
                // Is an image link
