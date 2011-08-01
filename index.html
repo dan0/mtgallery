@@ -4,25 +4,22 @@
     <meta charset="UTF-8" />
     <title>MTgallery</title>
 	<style type="text/css" media="screen">
-		
 
+	body {
+		background: #eee;
+		font-family: helvetica, arial, sans-serif;
+	}
 
-			body {
-				background: #eee;
-				font-family: helvetica, arial, sans-serif;
-			}
-
-			#page {
-				width: 780px;
-				padding: 5px 25px;
-				background: white;
-				border: 1px solid #ccc;
-				box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
-				margin: 15px auto;
-				border-radius: 5px;
-			}
-
-
+	#page {
+		width: 780px;
+		padding: 5px 25px;
+		background: white;
+		border: 1px solid #ccc;
+		box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+		margin: 15px auto;
+		border-radius: 5px;
+	}
+	
 	.mt-gallery {
 	    width: 450px;
 	    height: 500px;
@@ -65,17 +62,11 @@
 	}
 
 	</style>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script src="jquery.mtgallery.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
 		
 		$(document).ready(function() {
-			
-			$('#page').hide();
-			
-			$('#open').click(function() {
-				$('#page').toggle();
-			});
 			
 			$('.demo').mtgallery();
 			
@@ -86,25 +77,35 @@
 </head>
 <body>
 	
-	<a href="#" id="open">open close</a>
-	
 	<div id="page">
-    
-		<h1>MT Gallery</h1>
+ 
+	<h1>MT Gallery</h1>
 
 		<ul class="demo">
-            <li><a href="http://upload.wikimedia.org/wikipedia/commons/6/68/London-bridge-1682.jpg">Link text</a></li>
-            <li><a href="http://www.youtube.com/watch?v=ZXMQqLnRhRI">Some more text</a></li>
-            <li><a href="gogh5.jpg">Some more link text</a></li>
-          </ul>
+			<li>
+				<a href="http://upload.wikimedia.org/wikipedia/commons/6/68/London-bridge-1682.jpg">Link text</a>
+			</li>
+			<li>
+				<a href="http://www.youtube.com/watch?v=ZXMQqLnRhRI">Some more text</a>
+			</li>
+			<li>
+				<a href="gogh5.jpg">Some more link text</a>
+			</li>
+		</ul>
 
 		<ul class="demo">
-            <li><a href="http://www.youtube.com/watch?v=ZXMQqLnRhRI">Some more text</a></li>
-            <li><a href="http://upload.wikimedia.org/wikipedia/commons/6/68/London-bridge-1682.jpg">Link text</a></li>
-			<li><a href="gogh5.jpg">Some more link text</a></li>
-          </ul>
+			<li>
+				<a href="http://www.youtube.com/watch?v=ZXMQqLnRhRI">Some more text</a>
+				</li>
+			<li>
+				<a href="http://upload.wikimedia.org/wikipedia/commons/6/68/London-bridge-1682.jpg">Link text</a>
+			</li>
+			<li>
+				<a href="gogh5.jpg">Some more link text</a>
+			</li>
+		</ul>
 
 	</div>
-	
+
 </body>
 </html>
