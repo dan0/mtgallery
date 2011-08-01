@@ -95,9 +95,6 @@ jQuery.fn.mtgallery = function(options) {
             var width = $img.width();
             var height = $img.height();
             
-            console.log('width '+ width);
-            console.log('height '+ height);
-            
             if (width > maxWidth || width > height) {
                 ratio = maxWidth / width; 
                 $img.css("width", maxWidth); // Set new width
