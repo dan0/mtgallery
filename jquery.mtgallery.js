@@ -26,7 +26,7 @@ jQuery.fn.mtgallery = function(options) {
         var slides = [];
         
         // wrap the element in a mtgallery div
-        $el.wrap($('<div class="mt-gallery"/>'));
+        $el.hide().wrap($('<div class="mt-gallery"/>'));
         var $gal = $el.parent('.mt-gallery');
         $gal.append('<div class="mt-viewer"></div><ul class="mt-thumbs"></ul>');
         var $viewer = $gal.find('.mt-viewer');
@@ -53,14 +53,6 @@ jQuery.fn.mtgallery = function(options) {
                 return ytid[1] 
             };
 			return false;
-        }
-        
-        function parseYtLink (id, order) {
-            
-        }
-        
-        function parseImgLink (link, order) {
-            
         }
         
         function loadSlide ($gallery, order) {
@@ -106,7 +98,7 @@ jQuery.fn.mtgallery = function(options) {
             console.log('width '+ width);
             console.log('height '+ height);
             
-            if (width > maxWidth) {
+            if (width > maxWidth || width > height) {
                 ratio = maxWidth / width; 
                 $img.css("width", maxWidth); // Set new width
                 $img.css("height", height * ratio);  // Scale height based on ratio
@@ -120,7 +112,7 @@ jQuery.fn.mtgallery = function(options) {
                     'opacity': 1
                 }, 500);
             };
-            if(height > maxHeight){
+            if(height > maxHeight || height > width){
                 ratio = maxHeight / height; 
                 $img.css("height", maxHeight);   
                 $img.css("width", width * ratio);  

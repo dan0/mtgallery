@@ -71,6 +71,12 @@
 		
 		$(document).ready(function() {
 			
+			$('#page').hide();
+			
+			$('#open').click(function() {
+				$('#page').toggle();
+			});
+			
 			$('.demo').mtgallery();
 			
 		});
@@ -79,6 +85,8 @@
 	</script>
 </head>
 <body>
+	
+	<a href="#" id="open">open close</a>
 	
 	<div id="page">
     
