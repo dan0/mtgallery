@@ -7,10 +7,10 @@ image gallery, embedding the content of the original links.
 
 e.g.
 
-    <ul>
-        <li><a href="http://www.image.com/image.jpg">Anything</a></li>
-        <li><a href="www.youtu.be/videoId">Text</a></li>
-    </ul>
+<ul>
+    <li><a href="http://www.image.com/image.jpg">Anything</a></li>
+    <li><a href="www.youtu.be/videoId">Text</a></li>
+</ul>
 
 Will become a gallery with 2 slides, one of which being an embedded 
 youtube video.
