@@ -148,44 +148,44 @@ jQuery.fn.mtgallery = function(options) {
 		// pick out links etc
 		$el.children().each(function(i) {
 			
-		   var $this = $(this);
-		   
-		   // get only the first link
-		   var $link = $this.find('a:first');
-		   var href = $link.attr('href');
-		   var ytid = getId(href);
-		   
-		   $('<div/>').appendTo($viewer).css('z-index',9000-i);
-		   //add current class to first list item appended
-		   var htmlString = i == 0 ? '<li class="current"/>' :	'<li/>';
-		   var $thumbwrap = $(htmlString).appendTo($thumbs).click(function() {
-			   loadSlide($gal, $(this).index());
-		   });
-		   
-		   if (ytid) {
-			   var thumbUrl = "http://img.youtube.com/vi/" + ytid + "/0.jpg";
-			   var $thumb = $("<img/>") 
-					  .attr("src", thumbUrl)
-					  .load(function() {
-						 // add thumbnail,resize
-						 $thumbs.children().eq(i).append($(this));
-						 resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
-					  });
+			var $this = $(this);
+ 
+			// get only the first link
+			var $link = $this.find('a:first');
+			var href = $link.attr('href');
+			var ytid = getId(href);
+ 
+			$('<div/>').appendTo($viewer).css('z-index',9000-i);
+			 
+			//add current class to first list item appended
+			var htmlString = i == 0 ? '<li class="current"/>' :	'<li/>';
+			var $thumbwrap = $(htmlString).appendTo($thumbs).click(function() {
+			loadSlide($gal, $(this).index());
+			});
+   
+			if (ytid) {
+				var thumbUrl = "http://img.youtube.com/vi/" + ytid + "/0.jpg";
+				var $thumb = $("<img/>") 
+					.attr("src", thumbUrl)
+					.load(function() {
+						// add thumbnail,resize
+						$thumbs.children().eq(i).append($(this));
+						resizeImg($thumb, options.thumbMaxWidth, options.thumbMaxHeight)
+					});
+			
 				// only load youtube initially if it's the first item in list  
 				if (i == 0) {
 					$viewer.children('div').eq(i).html(embedYouTube(ytid, false));
 				}
 				$thumbwrap.addClass('youtube').attr('data-yt', ytid);
-		   }
-		   else {
-			   // Is an image link			   
-			   var $img = $("<img/>") 
-				   .attr("src", href)
-				   .css({'opacity':0});
-				loadImg($img, i);
-
-		   }
-		   
+			}
+			else {
+				// Is an image link			   
+				var $img = $("<img/>") 
+					.attr("src", href)
+					.css({'opacity':0});
+				loadImg($img, i
+			}
 		});
 		
 	   
@@ -218,7 +218,5 @@ jQuery.fn.mtgallery = function(options) {
 				}
 			});
 		};
-   
 	 });
-	
 };
